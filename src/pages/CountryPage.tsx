@@ -10,12 +10,18 @@ export default function CountryPage() {
   useEffect(() => {
     if (!code) return;
 
+    // Fetch with fields
     fetch(
       `https://restcountries.com/v3.1/alpha/${code}?fields=cca3,name,flags,region,subregion,population,capital`
     )
       .then((res) => res.json())
       .then((data) => {
+        // API возвращает объект для одного кода
         setCountry(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
         setLoading(false);
       });
   }, [code]);
