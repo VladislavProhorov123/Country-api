@@ -16,6 +16,8 @@ export default function Home() {
       });
   }, []);
 
+  
+
   if (loading) return <p className="p-10">Loading...</p>;
 
   return (
