@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import type { ICountry } from "../types/Country";
+import { ArrowLeft } from "lucide-react";
+import CountryMap from "../components/CountryMap";
 
 export default function CountryPage() {
   const { code } = useParams<{ code: string }>();
@@ -12,7 +14,7 @@ export default function CountryPage() {
     if (!code) return;
 
     fetch(
-      `https://restcountries.com/v3.1/alpha/${code}?fields=cca3,name,flags,coatOfArms,region,subregion,population,capital,languages,currencies,timezones,borders,area,latlng,tld`
+      `https://restcountries.com/v3.1/alpha/${code}?fields=cca3,name,flags,coatOfArms,region,subregion,population,capital,languages,currencies,timezones,borders,area,latlng,tld`,
     )
       .then((res) => res.json())
       .then((data) => {
@@ -23,8 +25,8 @@ export default function CountryPage() {
         if (data.borders && data.borders.length) {
           fetch(
             `https://restcountries.com/v3.1/alpha?codes=${data.borders.join(
-              ","
-            )}&fields=cca3,name,flags`
+              ",",
+            )}&fields=cca3,name,flags`,
           )
             .then((res) => res.json())
             .then(setNeighbors)
@@ -41,7 +43,7 @@ export default function CountryPage() {
   if (!country) return <p className="p-10">Country not found</p>;
 
   return (
-    <div className="p-10 max-w-6xl mx-auto space-y-10">
+    <div className="p-10 max-w-6xl mx-auto space-y-10 relative">
       {/* HEADER */}
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <img
@@ -144,6 +146,16 @@ export default function CountryPage() {
           </div>
         </div>
       )}
+
+      <section className="mt-12">
+        <h2 className="text-2xl font-semibold mb-4">Location on map</h2>
+
+        <CountryMap latlng={country.latlng} name={country.name.common} />
+      </section>
+
+      <Link to={"/"} className="absolute top-12 left-[-160px]">
+        <ArrowLeft />
+      </Link>
     </div>
   );
 }
