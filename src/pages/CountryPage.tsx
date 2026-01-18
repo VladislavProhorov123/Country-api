@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import type { ICountry } from "../types/Country";
-import { ArrowLeft } from "lucide-react";
+import {
+  ArrowLeft,
+  Globe,
+  MapPin,
+  Users,
+  Landmark,
+  Languages,
+  Coins,
+  Clock,
+  Ruler,
+  Hash,
+} from "lucide-react";
 import CountryMap from "../components/CountryMap";
+import InfoRow from "../components/InfoRow";
 
 export default function CountryPage() {
   const { code } = useParams<{ code: string }>();
@@ -21,7 +33,6 @@ export default function CountryPage() {
         setCountry(data);
         setLoading(false);
 
-        // Если есть соседние страны, подгружаем их
         if (data.borders && data.borders.length) {
           fetch(
             `https://restcountries.com/v3.1/alpha?codes=${data.borders.join(
@@ -61,27 +72,34 @@ export default function CountryPage() {
         <div>
           <h1 className="text-4xl font-bold mb-6">{country.name.common}</h1>
 
-          <div className="space-y-3 text-lg">
-            <p>
-              <b>Official name:</b> {country.name.official}
-            </p>
-            <p>
-              <b>Region:</b> {country.region}
-            </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <InfoRow
+              icon={Landmark}
+              label="Official name"
+              value={country.name.official}
+            />
+            <InfoRow icon={Globe} label="Region" value={country.region} />
             {country.subregion && (
-              <p>
-                <b>Subregion:</b> {country.subregion}
-              </p>
+              <InfoRow
+                icon={Globe}
+                label="Subregion"
+                value={country.subregion}
+              />
             )}
             {country.capital && (
-              <p>
-                <b>Capital:</b> {country.capital.join(", ")}
-              </p>
+              <InfoRow
+                icon={MapPin}
+                label="Capital"
+                value={country.capital.join(", ")}
+              />
             )}
+
             {country.tld && (
-              <p>
-                <b>Top-level domain:</b> {country.tld.join(", ")}
-              </p>
+              <InfoRow
+                icon={Hash}
+                label="Top-level domain"
+                value={country.tld.join(", ")}
+              />
             )}
           </div>
         </div>
@@ -89,63 +107,87 @@ export default function CountryPage() {
 
       {/* POPULATION & AREA */}
       <div className="grid md:grid-cols-2 gap-6">
-        <p>
-          <b>Population:</b> {country.population.toLocaleString()}
-        </p>
-        <p>
-          <b>Area:</b> {country.area.toLocaleString()} km²
-        </p>
-        <p>
-          <b>Population density:</b>{" "}
-          {(country.population / country.area).toFixed(1)} per km²
-        </p>
-        <p>
-          <b>Coordinates:</b> {country.latlng.join(", ")}
-        </p>
+        <InfoRow
+          icon={Users}
+          label="Population"
+          value={country.population.toLocaleString()}
+        />
+
+        <InfoRow
+          icon={Ruler}
+          label="Area"
+          value={`${country.area.toLocaleString()} km²`}
+        />
+
+        <InfoRow
+          icon={Users}
+          label="Population density"
+          value={`${(country.population / country.area).toFixed(1)} per km²`}
+        />
+
+        <InfoRow
+          icon={MapPin}
+          label="Coordinates"
+          value={country.latlng.join(", ")}
+        />
       </div>
 
       {/* CURRENCIES & LANGUAGES */}
       <div className="grid md:grid-cols-2 gap-6">
         {country.currencies && (
-          <p>
-            <b>Currency:</b>{" "}
-            {Object.values(country.currencies)
+          <InfoRow
+            icon={Coins}
+            label="Currency"
+            value={Object.values(country.currencies)
               .map((c) => `${c.name} (${c.symbol})`)
               .join(", ")}
-          </p>
+          />
         )}
+
         {country.languages && (
-          <p>
-            <b>Languages:</b> {Object.values(country.languages).join(", ")}
-          </p>
+          <InfoRow
+            icon={Languages}
+            label="Languages"
+            value={Object.values(country.languages).join(", ")}
+          />
         )}
-        <p>
-          <b>Timezones:</b> {country.timezones.join(", ")}
-        </p>
+
+        <InfoRow
+          icon={Clock}
+          label="Timezones"
+          value={country.timezones.join(", ")}
+        />
       </div>
 
       {/* NEIGHBORS */}
-      {neighbors.length > 0 && (
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">Neighboring Countries</h2>
-          <div className="flex gap-4 flex-wrap">
-            {neighbors.map((n) => (
-              <Link
-                key={n.cca3}
-                to={`/country/${n.cca3}`}
-                className="flex flex-col items-center w-24"
-              >
-                <img
-                  src={n.flags.png}
-                  alt={n.name.common}
-                  className="w-full h-12 object-cover rounded"
-                />
-                <span className="text-sm text-center">{n.name.common}</span>
-              </Link>
-            ))}
+      <div className="flex gap-4 flex-wrap">
+        {neighbors.length > 0 && (
+          <div>
+            <h2 className="text-2xl font-semibold mb-4">
+              Neighboring Countries
+            </h2>
+
+            <div className="flex gap-4 flex-wrap">
+              {neighbors.map((n) => (
+                <Link
+                  key={n.cca3}
+                  to={`/country/${n.cca3}`}
+                  className="flex flex-col items-center w-28 p-2 rounded-lg hover:bg-gray-100 transition"
+                >
+                  <img
+                    src={n.flags.png}
+                    alt={n.name.common}
+                    className="w-full h-16 object-cover rounded"
+                  />
+                  <span className="text-sm text-center mt-2 font-medium">
+                    {n.name.common}
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       <section className="mt-12">
         <h2 className="text-2xl font-semibold mb-4">Location on map</h2>
