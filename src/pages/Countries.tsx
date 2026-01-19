@@ -8,7 +8,9 @@ export default function Home() {
   const [selectedCountry, setSelectedCountry] = useState<ICountry | null>(null);
 
   useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all?fields=cca3,name,flags,region,population,capital")
+    fetch(
+      "https://restcountries.com/v3.1/all?fields=cca3,name,flags,region,population,capital",
+    )
       .then((res) => res.json())
       .then((data) => {
         setCountries(data);
@@ -16,15 +18,27 @@ export default function Home() {
       });
   }, []);
 
-  
-
-  if (loading) return <p className="p-10">Loading...</p>;
+  if (loading)
+    return (
+      <div className="flex items-center justify-center h-[60vh]">
+        <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin" />
+      </div>
+    );
 
   return (
-    <div className="p-10">
-      <h1 className="text-3xl font-bold mb-8">Countries</h1>
+    <div className="px-4 py-6 sm:p-10 max-w-7xl mx-auto">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8">Countries</h1>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div
+        className="grid
+          grid-cols-1
+          sm:grid-cols-2
+          md:grid-cols-3
+          lg:grid-cols-4
+          gap-4
+          sm:gap-6
+"
+      >
         {countries.map((country) => (
           <div
             key={country.cca3}
