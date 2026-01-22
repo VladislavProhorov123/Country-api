@@ -6,7 +6,7 @@ export default function MainLayout() {
   return (
     <div>
       <Header />
-      <main className="mt-[100px]">
+      <main className="">
         <Outlet />
       </main>
     </div>

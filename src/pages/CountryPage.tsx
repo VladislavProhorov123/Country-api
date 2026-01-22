@@ -195,7 +195,7 @@ export default function CountryPage() {
         <CountryMap latlng={country.latlng} name={country.name.common} />
       </section>
 
-      <Link to={"/"} className="absolute top-4 left-4">
+      <Link to={"/countries"} className="absolute top-4 left-4">
         <ArrowLeft />
       </Link>
     </div>

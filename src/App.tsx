@@ -13,6 +13,7 @@ export default function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<MainPage />} />
           <Route path="/countries" element={<Countries />} />
+          <Route path="/country/:code" element={<CountryPage />} />
           <Route path="/favorites" element={<Favorites />} />
         </Route>
       </Routes>
