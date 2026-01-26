@@ -14,7 +14,7 @@ export default function StepCard({
   icon,
 }: IStepCardProps) {
   return (
-    <div className="flex flex-col items-center text-center p-6 bg-white rounded-2xl shadow-md relative">
+    <div className="flex flex-col items-center text-center p-6 bg-white rounded-2xl shadow-md relative cursor-pointer">
       <div className="mb-4 flex items-center justify-center h-12 w-12 rounded-full bg-blue-500 text-white text-xl">
         {icon ? icon : step}
       </div>

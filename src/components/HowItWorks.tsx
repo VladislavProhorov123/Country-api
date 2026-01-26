@@ -11,7 +11,7 @@ export default function HowItWorks() {
           text="How It Works"
           subtitle="Follow these simple steps to explore countries quickly and easily"
         />
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
           <StepCard
             step={1}
             text="Choose a Country"
