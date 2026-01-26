@@ -14,7 +14,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-white/60 backdrop-blur-sm"></div>
 
       {/* Контент */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 text-center max-w-4xl mx-auto">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 text-center max-w-3xl mx-auto">
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
           Discover the World
         </h1>
