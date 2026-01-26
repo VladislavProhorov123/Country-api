@@ -9,7 +9,7 @@ interface ICardProps {
 
 export default function FeatureCard({icon, color, text, subtext}: ICardProps) {
   return (
-    <div className='flex flex-col items-center text-center p-6 rounded-2xl border border-gray-200 bg-white hover:shadow-md transition-all'>
+    <div className='flex flex-col items-center text-center p-6 rounded-2xl border border-gray-200 bg-white hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 hover:rotate-1'>
       <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${color}`}>
         {icon}
       </div>
