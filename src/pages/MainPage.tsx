@@ -5,6 +5,7 @@ import Features from '../components/Features'
 import HowItWorks from '../components/HowItWorks'
 import CountriesPreview from '../components/CountriesPreview'
 import Statistics from '../components/Statistics'
+import CTA from '../components/CTA'
 
 export default function MainPage() {
   return (
@@ -14,6 +15,7 @@ export default function MainPage() {
       <HowItWorks />
       <CountriesPreview />
       <Statistics />
+      <CTA />
     </div>
   )
 }
