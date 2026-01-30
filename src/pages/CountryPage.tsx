@@ -12,6 +12,7 @@ import {
   Clock,
   Ruler,
   Hash,
+  Heart,
 } from "lucide-react";
 import CountryMap from "../components/CountryMap";
 import InfoRow from "../components/InfoRow";
@@ -54,7 +55,7 @@ export default function CountryPage() {
   if (!country) return <p className="p-10">Country not found</p>;
 
   return (
-    <div className="p-10 max-w-6xl mx-auto space-y-10 relative">
+    <div className="p-10 max-w-6xl mx-auto space-y-10 relative mt-[100px]">
       {/* HEADER */}
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <img
@@ -70,8 +71,10 @@ export default function CountryPage() {
           />
         )}
         <div>
-          <h1 className="text-4xl font-bold mb-6">{country.name.common}</h1>
-
+          <div className="flex gap-4 mb-6 items-end">
+          <h1 className="text-4xl font-bold">{country.name.common}</h1>
+          <button className="cursor-pointer"><Heart stroke="red" className="w-[32px] h-[32px]" /></button>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <InfoRow
               icon={Landmark}
@@ -195,7 +198,7 @@ export default function CountryPage() {
         <CountryMap latlng={country.latlng} name={country.name.common} />
       </section>
 
-      <Link to={"/countries"} className="absolute top-4 left-4">
+      <Link to={"/countries"} className="absolute top-12 -left-[100px]">
         <ArrowLeft />
       </Link>
     </div>
